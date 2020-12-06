@@ -1,0 +1,139 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    background-color: #DB2777;
+}
+
+.game-board {
+    width: 100vmin;
+    height: 500px;
+    height: 90vmin;
+    margin: 0;
+    background-color: #7C3AED;
+    display: flex;
+    flex-direction: column;
+}
+
+.words-board {
+    background-color: #C4B5FD;
+    color: #000000;
+    height: 75%;
+    padding: .5rem;
+    font-size: 2.4rem;
+    /* display: grid;
+    grid-template-rows: repeat(16, 1fr);
+    grid-template-columns: repeat(16, 1fr); */
+    position: relative;
+    overflow: hidden;
+}
+
+.word {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: .5rem;
+}
+
+.word-input {
+    width: 90%;
+    margin: 1.5rem auto 0;
+    height: 3.6rem;
+    font-size: 1.6rem;
+    padding: 1.5rem;
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.word-input:focus {
+    outline: none;
+    border: 1px solid #7bc1f7;
+    box-shadow: 0px 0px 8px #7bc1f7;
+    -moz-box-shadow: 0px 0px 8px #7bc1f7;
+    -webkit-box-shadow: 0px 0px 8px #7bc1f7;
+}
+
+.game-status {
+    display: flex;
+    justify-content: space-evenly;
+    color: #ffffff;
+    margin-top: 1.5rem;
+}
+
+.game-status-item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.game-board label {
+    font-weight: bold;
+    font-size: 2.4rem;
+    margin-bottom: .5rem;
+}
+
+.game-board span {
+    font-size: 2rem;
+}
+
+.game-options {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    grid-gap: 1.5rem;
+    padding: 1.5rem 0;
+}
+
+.game-option {
+    display: flex;
+    flex-direction: column;
+}
+
+.game-option select {
+    font-size: 1.6rem;
+    padding: 1rem;
+}
+
+.btn-play {
+    font-size: 1.8rem;
+    border-radius: 0.6rem;
+    transition: 0.2s;
+    padding: 1.2rem 6.4rem;
+    font-weight: 500;
+    color: #ffffff;
+    -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+}
+
+.correct {
+    color: lime;
+}
+
+.incorrect {
+    color: red;
+}
+
+@media screen and (min-width:600px) {
+    .game-board {
+        margin: 5vmin auto 0;
+        -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+        box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+    }
+}

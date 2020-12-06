@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="game-board">
+            <div class="words-board" ref="words_board">
+                <template v-for="word in currentWords">
+                    <div class="word" :style="word.style">
+                        <template v-for="(character,index) in word.characters">
+                            <span :class="word.classList[index]">{{ character }} </span>
+                        </template>
+            </div>
+            </template>
+        </div>
+        <input type="text" class="word-input" v-model="input_word" @input="checkWordEquality();checkCharacter();">
+        <div class="game-status" v-if="isGameStarted">
+            <div class="game-status-item">
+                <label>Time</label>
+                <span>00:00:00</span>
+            </div>
+            <div class="game-status-item">
+                <label>Score</label>
+                <span>5</span>
+            </div>
+        </div>
+        <div class="game-options" v-else>
+            <div class="game-option">
+                <label>Game Mode </label>
+                <select>
+                        <option value="1">Easy</option>
+                        <option value="2">Normal</option>
+                        <option value="2">Hard</option>
+                    </select>
+            </div>
+            <div class="game-option">
+                <a href="#" class="btn-play" @click="play">Play</a>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</body>
+
+</html>
+<script src="assets/js/vue.global.js"></script>
+<script src="assets/js/game.js" type="module"></script>
