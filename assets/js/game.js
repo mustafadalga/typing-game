@@ -81,6 +81,9 @@ const App = {
                     break;
             }
         },
+        isAddedAllWords() {
+            return this.words.length == this.wordIndex
+        },
         checkWordEquality() {
             var word = this.inputWord
             let wordIndex = this.currentWords.findIndex(item => item.characters.join('') == word);
@@ -88,8 +91,12 @@ const App = {
                 this.removeWord(wordIndex)
                 this.inputWord = ""
                 this.increaseScore()
+                this.checkGameCompleted()
             }
             this.checkCharacter()
+        },
+        getWordsLength() {
+            this.words.length
         },
         checkCharacter() {
             const inputValue = this.inputWord.split('')
@@ -106,15 +113,24 @@ const App = {
             })
         },
         addWord() {
-            this.currentWords.push({
-                characters: this.words[this.wordIndex].split(''),
-                classList: [],
-                style: {
-                    left: this.getRandomPosition() + 'px',
-                    top: "-30px"
-                }
-            })
-            this.wordIndex++;
+            if (!this.isAddedAllWords()) {
+                this.currentWords.push({
+                    characters: this.words[this.wordIndex].split(''),
+                    classList: [],
+                    style: {
+                        left: `${this.getRandomPosition()}px`,
+                        top: "-30px"
+                    }
+                })
+                this.wordIndex++;
+            }
+        },
+        checkGameCompleted() {
+            if (this.isAddedAllWords() && this.currentWords.length == 0) {
+                this.gameOver = true
+                this.clearInterval()
+                console.log("oyunu kazandınız")
+            }
         },
         removeWord(wordIndex) {
             this.currentWords.splice(wordIndex, 1);
@@ -148,13 +164,13 @@ const App = {
             });
         },
         checkIsTopToBottom() {
-            let wordBoardTop = this.$refs.words_board.offsetHeight;
+            let wordsBoardTop = this.$refs.words_board.offsetHeight;
             this.currentWords.forEach((_, index) => {
                 let wordPositionTop = this.getCurrentWordTop(index)
-                if (wordPositionTop > wordBoardTop) {
+                if (wordPositionTop > wordsBoardTop) {
                     this.gameOver = true
                     this.clearInterval()
-                } else {}
+                }
             });
         },
         clearInterval() {

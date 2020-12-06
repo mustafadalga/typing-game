@@ -21,12 +21,14 @@ body {
 
 .game-board {
     width: 100vmin;
-    height: 500px;
     height: 90vmin;
-    margin: 0;
     background-color: #7C3AED;
     display: flex;
     flex-direction: column;
+    margin: 5vmin auto 0;
+    -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
 }
 
 .words-board {
@@ -128,11 +130,11 @@ body {
     color: red;
 }
 
-@media screen and (min-width:600px) {
+@media screen and (max-width: 600px) {
     .game-board {
-        margin: 5vmin auto 0;
-        -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
-        box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+        margin: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
     }
 }
