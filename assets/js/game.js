@@ -34,7 +34,10 @@ const App = {
 
         }
     },
-    created() {},
+    created() {
+        this.getLocalStorage()
+        this.getWordAnimationSpeed()
+    },
     mounted() {
         this.shuffleWords()
     },
@@ -52,7 +55,20 @@ const App = {
             }, this.wordAnimationSpeed);
             this.checkIsTopToBottom()
         },
+        getLocalStorage() {
+            this.selectedGameMode = parseInt(localStorage.getItem('gameMode')) || this.selectedGameMode;
+        },
+        setLocalStorage() {
+            localStorage.setItem('gameMode', this.selectedGameMode);
+        },
+        clearStorage() {
+            localStorage.clear();
+        },
         setGameMode() {
+            this.setLocalStorage()
+            this.getWordAnimationSpeed()
+        },
+        getWordAnimationSpeed() {
             switch (this.selectedGameMode) {
                 case 0:
                     this.wordAnimationSpeed = 40
