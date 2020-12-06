@@ -7,30 +7,31 @@ const App = {
             currentWords: [],
             isGameStarted: false,
             gameOver: false,
-            wordStyleWidth: 150,
+            wordStyleWidth: 180,
             wordIndex: 0,
-            wordInsertionInterval: null,
-            wordInsertionSpeed: 1,
-            wordAnimationInterval: null,
-            wordAnimationSpeed: 20,
-            input_word: "",
-            gameProgress: {
-                time: null,
-                score: 0
-            },
+            wordInsertionSpeed: 2,
+            wordAnimationSpeed: 40,
+            inputWord: "",
+            gameModes: ['Easy', 'Normal', 'Hard'],
+            selectedGameMode: 0,
+            score: 0,
             timer: {
                 second: 0,
                 minute: 0,
                 hour: 0
             },
+            wordInsertionInterval: null,
+            wordAnimationInterval: null,
+            timerInterval: null,
         }
     },
-    computed() {
+    computed: {
         getTime() {
             let second = this.timer.second > 9 ? this.timer.second : `0${this.timer.second}`
             let minute = this.timer.minute > 9 ? this.timer.minute : `0${this.timer.minute}`
             let hour = this.timer.hour > 9 ? this.timer.hour : `0${this.timer.hour}`
             return `${hour}:${minute}:${second}`
+
         }
     },
     created() {},
@@ -40,6 +41,7 @@ const App = {
     methods: {
         play() {
             this.isGameStarted = true;
+            this.startTimer()
             this.addWord()
             this.wordInsertionInterval = setInterval(() => {
                 this.addWord()
@@ -50,17 +52,31 @@ const App = {
             }, this.wordAnimationSpeed);
             this.checkIsTopToBottom()
         },
+        setGameMode() {
+            switch (this.selectedGameMode) {
+                case 0:
+                    this.wordAnimationSpeed = 40
+                    break;
+                case 1:
+                    this.wordAnimationSpeed = 20
+                    break;
+                case 2:
+                    this.wordAnimationSpeed = 10
+                    break;
+            }
+        },
         checkWordEquality() {
-            var word = this.input_word
+            var word = this.inputWord
             let wordIndex = this.currentWords.findIndex(item => item.characters.join('') == word);
             if (wordIndex != -1) {
                 this.removeWord(wordIndex)
-                this.input_word = ""
+                this.inputWord = ""
+                this.increaseScore()
             }
             this.checkCharacter()
         },
         checkCharacter() {
-            const inputValue = this.input_word.split('')
+            const inputValue = this.inputWord.split('')
             this.currentWords.forEach((word, wordIndex) => {
                 word.characters.forEach((character, characherIndex) => {
                     if (inputValue[characherIndex] == null) {
@@ -107,6 +123,9 @@ const App = {
         increasePositionTop(wordIndex) {
             this.currentWords[wordIndex].style.top = `${this.getCurrentWordTop(wordIndex) + 1}px`
         },
+        increaseScore() {
+            this.score++
+        },
         wordsTopToBottom() {
             this.currentWords.forEach((word, index) => {
                 this.increasePositionTop(index)
@@ -118,13 +137,17 @@ const App = {
                 let wordPositionTop = this.getCurrentWordTop(index)
                 if (wordPositionTop > wordBoardTop) {
                     this.gameOver = true
-                    clearInterval(this.wordAnimationInterval)
-                    clearInterval(this.wordInsertionInterval)
+                    this.clearInterval()
                 } else {}
             });
         },
+        clearInterval() {
+            clearInterval(this.wordAnimationInterval)
+            clearInterval(this.wordInsertionInterval)
+            clearInterval(this.timerInterval)
+        },
         startTimer() {
-            this.timerSetInterval = setInterval(() => {
+            this.timerInterval = setInterval(() => {
                 this.timer.second++
                     if (this.timer.second === 60) {
                         this.timer.second = 0

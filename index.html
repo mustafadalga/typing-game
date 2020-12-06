@@ -19,30 +19,35 @@
             </div>
             </template>
         </div>
-        <input type="text" class="word-input" v-model="input_word" @input="checkWordEquality();checkCharacter();">
-        <div class="game-status" v-if="isGameStarted">
-            <div class="game-status-item">
-                <label>Time</label>
-                <span>00:00:00</span>
-            </div>
-            <div class="game-status-item">
-                <label>Score</label>
-                <span>5</span>
-            </div>
-        </div>
-        <div class="game-options" v-else>
-            <div class="game-option">
-                <label>Game Mode </label>
-                <select>
-                        <option value="1">Easy</option>
-                        <option value="2">Normal</option>
-                        <option value="2">Hard</option>
-                    </select>
-            </div>
-            <div class="game-option">
-                <a href="#" class="btn-play" @click="play">Play</a>
-            </div>
-        </div>
+        <template v-if="isGameStarted">
+                <input type="text" class="word-input" v-model="inputWord"
+                    @input="checkWordEquality();checkCharacter();">
+                <div class="game-status">
+                    <div class="game-status-item">
+                        <label>Time</label>
+                        <span>{{ getTime}}</span>
+                    </div>
+                    <div class="game-status-item">
+                        <label>Score</label>
+                        <span>{{score}}</span>
+                    </div>
+                </div>
+            </template>
+        <template v-else>
+                <div class="game-options">
+                    <div class="game-option">
+                        <label>Game Mode </label>
+                        <select @change="setGameMode" v-model="selectedGameMode">
+                            <option v-for="(gameMode,index) in gameModes" :value="index"
+                                :selected="index==selectedGameMode">
+                                {{gameMode}}</option>
+                        </select>
+                    </div>
+                    <div class="game-option">
+                        <a href="#" class="btn-play" @click="play">Play</a>
+                    </div>
+                </div>
+            </template>
     </div>
 
     </div>
