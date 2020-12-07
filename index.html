@@ -44,13 +44,16 @@
                         </select>
                     </div>
                     <div class="game-option">
-                        <a href="#" class="btn-play" @click="play">Play</a>
+                        <button class="btn" @click="play">Play</button>
                     </div>
                 </div>
             </template>
     </div>
-    <Modal :class="modalDisplayStatus ? 'open':''" />
+    <Modal :class="modalDisplayStatus ? 'open':''" :isgameover="gameOver" :modes="gameModes" @restart-game="restartGame" />
     </div>
+
+
+
 
 </body>
 

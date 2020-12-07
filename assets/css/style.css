@@ -114,18 +114,6 @@ body {
     padding: 1rem;
 }
 
-.btn-play {
-    font-size: 1.8rem;
-    border-radius: 0.6rem;
-    transition: 0.2s;
-    padding: 1.2rem 6.4rem;
-    font-weight: 500;
-    color: #ffffff;
-    -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
-    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
-}
-
 .correct {
     color: lime;
 }
@@ -163,7 +151,7 @@ body {
 .modal-content {
     width: 80%;
     max-width: 100rem;
-    margin: 8rem auto 0;
+    margin: 5rem auto 0;
     border-radius: .6rem;
     background-color: #DB2777;
     border: .6rem solid #fff;
@@ -191,21 +179,21 @@ body {
 
 .modal-body {
     padding: 2rem 1rem;
-    border-top: 1px solid #bbc0c4;
-    border-bottom: 1px solid #bbc0c4;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
     font-size: 2rem;
     text-align: center
 }
 
 .modal-body p {
-    padding: 3rem 5rem
+    padding: 2rem 5rem
 }
 
-.btn,
 .modal-footer {
     padding: 1rem;
     display: flex;
-    justify-content: center
+    justify-content: center;
+    grid-gap: 2.5rem
 }
 
 .btn {
@@ -219,7 +207,11 @@ body {
     color: #fff;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, .75)
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .75);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    min-width: 12rem;
 }
 
 .btn:hover .btn-arrow {
@@ -231,11 +223,66 @@ body {
     transition: all .3s ease-in-out
 }
 
+.game-scores-container {
+    width: 100%;
+    max-width: 60rem;
+    max-height: 30rem;
+    overflow-y: auto;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
+    margin: 2.5rem auto 0;
+}
+
+.game-scores {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.8rem;
+}
+
+.game-scores td,
+.game-scores th {
+    text-align: left;
+    padding: 1rem;
+}
+
+.game-scores tr:not(:last-child) td,
+th {
+    border-bottom: 1px solid #dddddd;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: .8rem;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #dddddd;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 @media screen and (max-width: 600px) {
     .game-board {
         margin: 0;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
+        height: 55rem;
     }
 }

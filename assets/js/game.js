@@ -24,7 +24,7 @@ const App = {
             wordInsertionInterval: null,
             wordAnimationInterval: null,
             timerInterval: null,
-            modalDisplayStatus: false
+            modalDisplayStatus: true,
         }
     },
     components: {
@@ -36,11 +36,10 @@ const App = {
             let minute = this.timer.minute > 9 ? this.timer.minute : `0${this.timer.minute}`
             let hour = this.timer.hour > 9 ? this.timer.hour : `0${this.timer.hour}`
             return `${hour}:${minute}:${second}`
-
         }
     },
     created() {
-        this.getLocalStorage()
+        this.selectedGameMode = Number(this.getLocalStorageData("gameMode")) || this.selectedGameMode
         this.getWordAnimationSpeed()
     },
     mounted() {
@@ -58,20 +57,45 @@ const App = {
                 this.wordsTopToBottom()
                 this.checkIsTopToBottom()
             }, this.wordAnimationSpeed);
-            this.checkIsTopToBottom()
         },
-        getLocalStorage() {
-            this.selectedGameMode = parseInt(localStorage.getItem('gameMode')) || this.selectedGameMode;
+        restartGame() {
+            this.resetGameData()
+            this.shuffleWords()
+            this.modalDisplayToggle()
         },
-        setLocalStorage() {
-            localStorage.setItem('gameMode', this.selectedGameMode);
+        resetGameData() {
+            this.currentWords = []
+            this.timer = {
+                second: 0,
+                minute: 0,
+                hour: 0
+            }
+            this.score = 0
+            this.gameOver = false
+            this.isGameStarted = false
+            this.wordIndex = 0
         },
-        clearStorage() {
+        getLocalStorageData(dataName) {
+            return localStorage.getItem(dataName);
+        },
+        setLocalStorageData(dataName, data) {
+            localStorage.setItem(dataName, data);
+        },
+        setclearStorageData() {
             localStorage.clear();
         },
         setGameMode() {
-            this.setLocalStorage()
+            this.setLocalStorageData("gameMode", this.selectedGameMode)
             this.getWordAnimationSpeed()
+        },
+        saveGameScores() {
+            let gameScores = JSON.parse(this.getLocalStorageData('gameScores')) || []
+            gameScores.push({
+                time: this.getTime,
+                score: this.score,
+                mode: this.selectedGameMode
+            });
+            this.setLocalStorageData("gameScores", JSON.stringify(gameScores))
         },
         getWordAnimationSpeed() {
             switch (this.selectedGameMode) {
@@ -99,7 +123,6 @@ const App = {
                 this.increaseScore()
                 this.checkGameCompleted()
             }
-            this.checkCharacter()
         },
         getWordsLength() {
             this.words.length
@@ -134,9 +157,19 @@ const App = {
         },
         checkGameCompleted() {
             if (this.isAddedAllWords() && this.currentWords.length == 0) {
-                this.gameOver = true
-                this.clearInterval()
+                this.gameFinish()
             }
+        },
+        gameFinish() {
+            this.gameOver = true
+            this.clearInterval()
+            this.saveGameScores()
+            setTimeout(() => {
+                this.modalDisplayToggle()
+            }, 500);
+        },
+        modalDisplayToggle() {
+            this.modalDisplayStatus = !this.modalDisplayStatus
         },
         removeWord(wordIndex) {
             this.currentWords.splice(wordIndex, 1);
@@ -165,7 +198,7 @@ const App = {
             this.score++
         },
         wordsTopToBottom() {
-            this.currentWords.forEach((word, index) => {
+            this.currentWords.forEach((_, index) => {
                 this.increasePositionTop(index)
             });
         },
@@ -174,8 +207,7 @@ const App = {
             this.currentWords.forEach((_, index) => {
                 let wordPositionTop = this.getCurrentWordTop(index)
                 if (wordPositionTop > wordsBoardTop) {
-                    this.gameOver = true
-                    this.clearInterval()
+                    this.gameFinish()
                 }
             });
         },
