@@ -1,13 +1,14 @@
 import { words } from './words.js';
+import Modal from './components/modal.js'
 
 const App = {
     data() {
         return {
             words: words,
             currentWords: [],
-            isGameStarted: false,
             gameOver: false,
-            wordStyleWidth: 180,
+            isGameStarted: false,
+            wordStyleWidth: 200,
             wordIndex: 0,
             wordInsertionSpeed: 2,
             wordAnimationSpeed: 40,
@@ -23,7 +24,11 @@ const App = {
             wordInsertionInterval: null,
             wordAnimationInterval: null,
             timerInterval: null,
+            modalDisplayStatus: false
         }
+    },
+    components: {
+        Modal
     },
     computed: {
         getTime() {
@@ -43,7 +48,7 @@ const App = {
     },
     methods: {
         play() {
-            this.isGameStarted = true;
+            this.isGameStarted = true
             this.startTimer()
             this.addWord()
             this.wordInsertionInterval = setInterval(() => {
@@ -85,6 +90,7 @@ const App = {
             return this.words.length == this.wordIndex
         },
         checkWordEquality() {
+            if (this.gameOver) return;
             var word = this.inputWord
             let wordIndex = this.currentWords.findIndex(item => item.characters.join('') == word);
             if (wordIndex != -1) {
@@ -99,6 +105,7 @@ const App = {
             this.words.length
         },
         checkCharacter() {
+            if (this.gameOver) return;
             const inputValue = this.inputWord.split('')
             this.currentWords.forEach((word, wordIndex) => {
                 word.characters.forEach((character, characherIndex) => {
@@ -129,7 +136,6 @@ const App = {
             if (this.isAddedAllWords() && this.currentWords.length == 0) {
                 this.gameOver = true
                 this.clearInterval()
-                console.log("oyunu kazandınız")
             }
         },
         removeWord(wordIndex) {
@@ -199,5 +205,4 @@ const App = {
         },
     }
 }
-
 Vue.createApp(App).mount('#app')

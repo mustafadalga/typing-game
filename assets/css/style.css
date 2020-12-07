@@ -22,7 +22,6 @@ body {
 .game-board {
     width: 100vmin;
     height: 90vmin;
-    background-color: #7C3AED;
     display: flex;
     flex-direction: column;
     margin: 5vmin auto 0;
@@ -32,21 +31,25 @@ body {
 }
 
 .words-board {
-    background-color: #C4B5FD;
+    background-color: #e0e0e0;
     color: #000000;
     height: 75%;
     padding: .5rem;
     font-size: 2.4rem;
-    /* display: grid;
-    grid-template-rows: repeat(16, 1fr);
-    grid-template-columns: repeat(16, 1fr); */
     position: relative;
     overflow: hidden;
 }
 
 .word {
     position: absolute;
-    padding: .5rem;
+    padding: 0 1rem;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    border-radius: 1rem;
+}
+
+.word span {
+    font-size: 2rem;
 }
 
 .word-input {
@@ -86,6 +89,7 @@ body {
     font-weight: bold;
     font-size: 2.4rem;
     margin-bottom: .5rem;
+    color: #fff;
 }
 
 .game-board span {
@@ -128,6 +132,103 @@ body {
 
 .incorrect {
     color: red;
+}
+
+
+/* Modal */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, .5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease-out;
+    color: #fff;
+}
+
+.modal.open {
+    visibility: visible;
+    opacity: 1
+}
+
+.modal.open .modal-content {
+    transform: translateY(0)
+}
+
+.modal-content {
+    width: 80%;
+    max-width: 100rem;
+    margin: 8rem auto 0;
+    border-radius: .6rem;
+    background-color: #DB2777;
+    border: .6rem solid #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .75);
+    transition: all .3s ease-out;
+    transform: translateY(-100rem)
+}
+
+.modal-header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.modal-title {
+    font-size: 2rem;
+    font-weight: 500
+}
+
+.close {
+    cursor: pointer;
+    font-size: 3rem
+}
+
+.modal-body {
+    padding: 2rem 1rem;
+    border-top: 1px solid #bbc0c4;
+    border-bottom: 1px solid #bbc0c4;
+    font-size: 2rem;
+    text-align: center
+}
+
+.modal-body p {
+    padding: 3rem 5rem
+}
+
+.btn,
+.modal-footer {
+    padding: 1rem;
+    display: flex;
+    justify-content: center
+}
+
+.btn {
+    outline: none;
+    border: none;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: .3rem;
+    transition: all .5s;
+    background-color: transparent;
+    color: #fff;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .75)
+}
+
+.btn:hover .btn-arrow {
+    padding-left: 1rem
+}
+
+.btn-arrow {
+    width: 2.5rem;
+    transition: all .3s ease-in-out
 }
 
 @media screen and (max-width: 600px) {
