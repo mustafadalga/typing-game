@@ -24,7 +24,7 @@ const App = {
             wordInsertionInterval: null,
             wordAnimationInterval: null,
             timerInterval: null,
-            modalDisplayStatus: true,
+            modalDisplayStatus: false,
         }
     },
     components: {
@@ -74,6 +74,7 @@ const App = {
             this.gameOver = false
             this.isGameStarted = false
             this.wordIndex = 0
+            this.inputValue = ""
         },
         getLocalStorageData(dataName) {
             return localStorage.getItem(dataName);
@@ -129,7 +130,7 @@ const App = {
         },
         checkCharacter() {
             if (this.gameOver) return;
-            const inputValue = this.inputWord.split('')
+            const inputValue = this.inputValue.split('')
             this.currentWords.forEach((word, wordIndex) => {
                 word.characters.forEach((character, characherIndex) => {
                     if (inputValue[characherIndex] == null) {

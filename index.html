@@ -20,7 +20,7 @@
             </template>
         </div>
         <template v-if="isGameStarted">
-                <input type="text" class="word-input" v-model="inputWord"
+                <input type="text" class="word-input" v-model="inputValue"
                     @input="checkWordEquality();checkCharacter();">
                 <div class="game-status">
                     <div class="game-status-item">
@@ -44,15 +44,13 @@
                         </select>
                     </div>
                     <div class="game-option">
-                        <button class="btn" @click="play">Play</button>
+                        <button class="btn" @click="play">Play<span class="btn-arrow">➔</span></button>
                     </div>
                 </div>
             </template>
     </div>
     <Modal :class="modalDisplayStatus ? 'open':''" :isgameover="gameOver" :modes="gameModes" @restart-game="restartGame" />
     </div>
-
-
 
 
 </body>
