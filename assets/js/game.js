@@ -12,7 +12,7 @@ const App = {
             wordIndex: 0,
             wordInsertionSpeed: 2,
             wordAnimationSpeed: 40,
-            inputWord: "",
+            inputValue: "",
             gameModes: ['Easy', 'Normal', 'Hard'],
             selectedGameMode: 0,
             score: 0,
@@ -116,11 +116,12 @@ const App = {
         },
         checkWordEquality() {
             if (this.gameOver) return;
-            var word = this.inputWord
+            var word = this.inputValue
             let wordIndex = this.currentWords.findIndex(item => item.characters.join('') == word);
             if (wordIndex != -1) {
+                console.log(22)
                 this.removeWord(wordIndex)
-                this.inputWord = ""
+                this.inputValue = ""
                 this.increaseScore()
                 this.checkGameCompleted()
             }

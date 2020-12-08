@@ -1,3 +1,16 @@
+:root {
+    --main-bg-color: #DB2777;
+    --black: #000000;
+    --white: #ffffff;
+    --lime: #00FF00;
+    --red: #ff0000;
+    --gray: #888888;
+    --color-alto: #dddddd;
+    --color-emperor: #555555;
+    --color-malibu: #7bc1f7;
+    --color-gainsboro: #e0e0e0;
+}
+
 *,
 *::before,
 *::after {
@@ -8,7 +21,7 @@
 
 a {
     text-decoration: none;
-    color: #000000;
+    color: var(--black);
 }
 
 html {
@@ -16,7 +29,7 @@ html {
 }
 
 body {
-    background-color: #DB2777;
+    background-color: var(--main-bg-color);
 }
 
 .game-board {
@@ -31,8 +44,8 @@ body {
 }
 
 .words-board {
-    background-color: #e0e0e0;
-    color: #000000;
+    background-color: var(--color-gainsboro);
+    color: var(--black);
     height: 75%;
     padding: .5rem;
     font-size: 2.4rem;
@@ -44,7 +57,7 @@ body {
     position: absolute;
     padding: 0 1rem;
     background-color: rgba(0, 0, 0, 0.75);
-    color: #fff;
+    color: var(--white);
     border-radius: 1rem;
 }
 
@@ -58,7 +71,7 @@ body {
     height: 3.6rem;
     font-size: 1.6rem;
     padding: 1.5rem;
-    border: 1px solid #c4c4c4;
+    border: 1px solid var(--color-alto);
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -66,16 +79,16 @@ body {
 
 .word-input:focus {
     outline: none;
-    border: 1px solid #7bc1f7;
-    box-shadow: 0px 0px 8px #7bc1f7;
-    -moz-box-shadow: 0px 0px 8px #7bc1f7;
-    -webkit-box-shadow: 0px 0px 8px #7bc1f7;
+    border: 1px solid var(--color-malibu);
+    box-shadow: 0px 0px 8px var(--color-malibu);
+    -moz-box-shadow: 0px 0px 8px var(--color-malibu);
+    -webkit-box-shadow: 0px 0px 8px var(--color-malibu);
 }
 
 .game-status {
     display: flex;
     justify-content: space-evenly;
-    color: #ffffff;
+    color: var(--white);
     margin-top: 1.5rem;
 }
 
@@ -89,7 +102,7 @@ body {
     font-weight: bold;
     font-size: 2.4rem;
     margin-bottom: .5rem;
-    color: #fff;
+    color: var(--white);
 }
 
 .game-board span {
@@ -117,19 +130,19 @@ body {
     border-radius: 4px;
     background-color: transparent;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.5);
-    color: #fff;
+    color: var(--white);
 }
 
 .game-option select option {
-    background-color: #DB2777;
+    background-color: var(--main-bg-color);
 }
 
 .correct {
-    color: lime;
+    color: var(--lime);
 }
 
 .incorrect {
-    color: red;
+    color: var(--red);
 }
 
 
@@ -141,12 +154,12 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #000;
+    background-color: var(--black);
     background-color: rgba(0, 0, 0, .5);
     opacity: 0;
     visibility: hidden;
     transition: all .3s ease-out;
-    color: #fff;
+    color: var(--white);
 }
 
 .modal.open {
@@ -161,13 +174,15 @@ body {
 .modal-content {
     width: 80%;
     max-width: 100rem;
+    max-height: 55rem;
     margin: 5rem auto 0;
     border-radius: .6rem;
-    background-color: #DB2777;
-    border: .6rem solid #fff;
+    background-color: var(--main-bg-color);
+    border: .6rem solid var(--white);
     box-shadow: 0 8px 24px rgba(0, 0, 0, .75);
     transition: all .3s ease-out;
-    transform: translateY(-100rem)
+    transform: translateY(-100rem);
+    overflow-y: auto;
 }
 
 .modal-header {
@@ -189,14 +204,14 @@ body {
 
 .modal-body {
     padding: 2rem 1rem;
-    border-top: 1px solid #dddddd;
-    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid var(--color-alto);
+    border-bottom: 1px solid var(--color-alto);
     font-size: 2rem;
     text-align: center
 }
 
 .modal-body p {
-    padding: 2rem 5rem
+    padding: 0 5rem 2rem;
 }
 
 .modal-footer {
@@ -214,7 +229,7 @@ body {
     border-radius: .3rem;
     transition: all .5s;
     background-color: transparent;
-    color: #fff;
+    color: var(--white);
     align-items: center;
     cursor: pointer;
     box-shadow: 0 1px 6px rgba(0, 0, 0, .75);
@@ -238,8 +253,8 @@ body {
     max-width: 60rem;
     max-height: 30rem;
     overflow-y: auto;
-    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.75);
-    margin: 2.5rem auto 0;
+    box-shadow: var(--bs-lg);
+    margin: 1rem auto 0;
 }
 
 .game-scores {
@@ -256,7 +271,7 @@ body {
 
 .game-scores tr:not(:last-child) td,
 th {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid var(--color-alto);
 }
 
 .modal .game-option {
@@ -272,32 +287,20 @@ th {
     font-size: 1.5rem;
 }
 
-
-/* width */
-
 ::-webkit-scrollbar {
     width: .8rem;
 }
 
-
-/* Track */
-
 ::-webkit-scrollbar-track {
-    background: #dddddd;
+    background: var(--color-alto);
 }
-
-
-/* Handle */
 
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: var(--gray);
 }
 
-
-/* Handle on hover */
-
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: var(--color-emperor);
 }
 
 @media screen and (max-width: 600px) {
