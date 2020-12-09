@@ -175,7 +175,7 @@ body {
     width: 80%;
     max-width: 100rem;
     max-height: 55rem;
-    margin: 5rem auto 0;
+    margin: 2.5rem auto 0;
     border-radius: .6rem;
     background-color: var(--main-bg-color);
     border: .6rem solid var(--white);
@@ -251,10 +251,11 @@ body {
 .game-scores-container {
     width: 100%;
     max-width: 60rem;
-    max-height: 30rem;
+    max-height: 24rem;
     overflow-y: auto;
     box-shadow: var(--bs-lg);
     margin: 1rem auto 0;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .75);
 }
 
 .game-scores {

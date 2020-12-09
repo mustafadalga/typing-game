@@ -8,23 +8,29 @@ const App = {
             currentWords: [],
             gameOver: false,
             isGameStarted: false,
-            wordStyleWidth: 200,
             wordIndex: 0,
-            wordInsertionSpeed: 2,
-            wordAnimationSpeed: 40,
             inputValue: "",
-            gameModes: ['Easy', 'Normal', 'Hard'],
             selectedGameMode: 0,
             score: 0,
+            modalDisplayStatus: false,
+            config: {
+                modes: ['Easy', 'Normal', 'Hard'],
+                wordStyleWidth: 200,
+                wordInsertionSpeeds: [4, 3, 2],
+                wordAnimationSpeeds: [60, 30, 15],
+                currentInsertionSpeed: 4,
+                currentAnimationSpeed: 60,
+            },
+            interval: {
+                insertion: null,
+                animation: null,
+                timer: null
+            },
             timer: {
                 second: 0,
                 minute: 0,
                 hour: 0
             },
-            wordInsertionInterval: null,
-            wordAnimationInterval: null,
-            timerInterval: null,
-            modalDisplayStatus: false,
         }
     },
     components: {
@@ -50,13 +56,13 @@ const App = {
             this.isGameStarted = true
             this.startTimer()
             this.addWord()
-            this.wordInsertionInterval = setInterval(() => {
+            this.interval.insertion = setInterval(() => {
                 this.addWord()
-            }, this.wordInsertionSpeed * 1000);
-            this.wordAnimationInterval = setInterval(() => {
+            }, this.config.currentInsertionSpeed * 1000);
+            this.interval.animation = setInterval(() => {
                 this.wordsTopToBottom()
                 this.checkIsTopToBottom()
-            }, this.wordAnimationSpeed);
+            }, this.config.currentAnimationSpeed);
         },
         checkWordEquality() {
             if (this.gameOver) return;
@@ -153,7 +159,7 @@ const App = {
             return this.$refs.words_board.offsetWidth;
         },
         getRandomPosition() {
-            return Math.floor(Math.random() * (this.getWordsBoardWidth() - this.wordStyleWidth))
+            return Math.floor(Math.random() * (this.getWordsBoardWidth() - this.config.wordStyleWidth))
         },
         getCurrentWordTop(wordIndex) {
             return Number(this.currentWords[wordIndex].style.top.slice(0, -2))
@@ -169,17 +175,8 @@ const App = {
             this.setWordAnimationSpeed()
         },
         setWordAnimationSpeed() {
-            switch (this.selectedGameMode) {
-                case 0:
-                    this.wordAnimationSpeed = 40
-                    break;
-                case 1:
-                    this.wordAnimationSpeed = 20
-                    break;
-                case 2:
-                    this.wordAnimationSpeed = 10
-                    break;
-            }
+            this.config.currentAnimationSpeed = this.config.wordAnimationSpeeds[this.selectedGameMode]
+            this.config.currentInsertionSpeed = this.config.wordInsertionSpeeds[this.selectedGameMode]
         },
         removeWord(wordIndex) {
             this.currentWords.splice(wordIndex, 1);
@@ -197,12 +194,12 @@ const App = {
             return this.words.length == this.wordIndex
         },
         clearInterval() {
-            clearInterval(this.wordAnimationInterval)
-            clearInterval(this.wordInsertionInterval)
-            clearInterval(this.timerInterval)
+            clearInterval(this.interval.animation)
+            clearInterval(this.interval.insertion)
+            clearInterval(this.interval.timer)
         },
         startTimer() {
-            this.timerInterval = setInterval(() => {
+            this.interval.timer = setInterval(() => {
                 this.timer.second++
                     if (this.timer.second === 60) {
                         this.timer.second = 0

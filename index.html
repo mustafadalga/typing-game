@@ -44,7 +44,7 @@
                     <div class="game-option">
                         <label>Game Mode </label>
                         <select @change="setGameMode" v-model="selectedGameMode">
-                            <option v-for="(gameMode,index) in gameModes" :value="index"
+                            <option v-for="(gameMode,index) in config.modes" :value="index"
                                 :selected="index==selectedGameMode">
                                 {{gameMode}}</option>
                         </select>
@@ -55,10 +55,8 @@
                 </div>
             </template>
     </div>
-    <Modal :class="modalDisplayStatus ? 'open':''" :isgameover="gameOver" :modes="gameModes" @restart-game="restartGame" />
+    <Modal :class="modalDisplayStatus ? 'open':''" :isgameover="gameOver" :modes="config.modes" @restart-game="restartGame" />
     </div>
-
-
 </body>
 
 </html>
