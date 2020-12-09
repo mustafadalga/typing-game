@@ -47,6 +47,15 @@ export default {
         getGameScores() {
             this.gameScores = JSON.parse(localStorage.getItem('gameScores')) || this.gameScores;
         },
+        sortGameScores() {
+            this.gameScores.sort((a, b) => b.mode.toString().localeCompare(a.mode) || b.score - a.score)
+        },
+        resetGameScoreFromStorage() {
+            localStorage.removeItem('gameScores');
+        },
+        getGameMode(index) {
+            return this.modes[Number(index)]
+        },
         resetModalData() {
             this.gameScores = []
             this.currentListMode = ''
@@ -56,15 +65,6 @@ export default {
                 time: ''
             }
         },
-        sortGameScores() {
-            this.gameScores.sort((a, b) => b.mode.toString().localeCompare(a.mode) || b.score - a.score)
-        },
-        resetGameScoreFromStorage() {
-            localStorage.removeItem('gameScores');
-        },
-        getGameMode(index) {
-            return this.modes[Number(index)]
-        }
     },
     template: `
       <div class="modal">
