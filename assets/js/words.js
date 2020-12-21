@@ -236,7 +236,7 @@ export const words = [
     "produce",
     "region",
     "result",
-    "return ",
+    "return",
     "science",
     "section",
     "silver",
